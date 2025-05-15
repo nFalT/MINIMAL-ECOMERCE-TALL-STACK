@@ -6,11 +6,12 @@
 
         <title>Minimal E-comerce-app</title>
         @vite('resources/css/app.css')
+        @vite('resoureces/js/app.js')
     </head>
     <body>
         <livewire:header />
         <livewire:hero-section />
         <livewire:product-section />
-        <livewire:footer /> 
+        <livewire:footer />
     </body>
 </html>
