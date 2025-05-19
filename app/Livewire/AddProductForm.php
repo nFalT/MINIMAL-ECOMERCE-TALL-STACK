@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Product;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
@@ -11,14 +12,30 @@ class AddProductForm extends Component
 
     public $currentUrl;
 
-    public $upload;
+    public $product_name = '';
 
     public $photo;
 
-    public $progress;
+    public $product_description = '';
+
+    public $product_price = '';
 
     public function save(){
+        $this->validate([
+            'product_name' => 'required',
+            'photo' => 'required|mime:jpg,npg|max:1024', // 1MB Max
+            'product_description' => 'required',
+            'product_price' => 'required|integer',
+        ]);
+        $product = new Product();
+        $product->name = $this->product_name;
+        $product->image = $path;
+        $product->description = $this->product_description;
+        $product->price = $this->product_price;
+        $product->category_id = $this->category_id;
+        $product->save();
 
+        return $this->redirect('/products', navigate: true);
     }
 
     public function render()
