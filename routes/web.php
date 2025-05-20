@@ -1,8 +1,10 @@
 <?php
 
+use App\Livewire\AddCategory;
 use App\Livewire\AddProductForm;
 use App\Livewire\DashboardAdmin;
 use App\Livewire\ManagaProduct;
+use App\Livewire\ManageCategories;
 use App\Livewire\ManageOrders;
 use App\Livewire\ProductDetails;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +23,10 @@ Route::group(['middleware' => 'admin'], function(){
     Route::get('/orders', ManageOrders::class)->name('orders');
 
     Route::get('/add/product', AddProductForm::class);
+
+    Route::get('/manage/categories', ManageCategories::class);
+
+    Route::get('/add/category', AddCategory::class);
 
 });
 

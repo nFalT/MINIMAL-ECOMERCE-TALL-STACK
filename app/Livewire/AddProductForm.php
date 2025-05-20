@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
@@ -19,6 +20,12 @@ class AddProductForm extends Component
     public $product_description = '';
 
     public $product_price = '';
+
+    public $all_categories;
+
+    public function mount(){
+        $this->all_categories = Category::all();
+    }
 
     public function save(){
         $this->validate([
@@ -42,6 +49,7 @@ class AddProductForm extends Component
     {
         $current_url= url()->current();
         $explode_url = explode('/', $current_url);
+
         $this->currentUrl = $explode_url[3]. ' ' . $explode_url[4];
 
         return view('livewire.add-product-form')
