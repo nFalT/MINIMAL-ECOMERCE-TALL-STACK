@@ -23,6 +23,8 @@ class AddProductForm extends Component
 
     public $all_categories;
 
+    public $category_id;
+
     public function mount(){
         $this->all_categories = Category::all();
     }
@@ -30,10 +32,14 @@ class AddProductForm extends Component
     public function save(){
         $this->validate([
             'product_name' => 'required',
-            'photo' => 'required|mime:jpg,npg|max:1024', // 1MB Max
+            'photo' => 'required|mimes:jpg,png|max:1024', // 1MB Max
             'product_description' => 'required',
             'product_price' => 'required|integer',
+            'category_id' => 'required',
         ]);
+
+        $path = $this->photo->store('photos');
+
         $product = new Product();
         $product->name = $this->product_name;
         $product->image = $path;
