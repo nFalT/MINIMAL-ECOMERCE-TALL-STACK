@@ -26,7 +26,9 @@ Route::get('/about',AboutUs::class);
 
 Route::get('/contacts',Contacts::class);
 
-Route::get('/shopping-cart',ShoppingCartComponent::class)->name('shopping-cart');
+Route::get('/shopping-cart', function () {
+    return view('shopping-cart');
+})->name('shopping-cart');
 
 Route::group(['middleware' => 'admin'], function(){
     Route::get('/admin/dashboard', DashboardAdmin::class)->name('dashboard');

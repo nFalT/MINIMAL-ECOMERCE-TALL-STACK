@@ -4,54 +4,36 @@ namespace App\Livewire;
 
 use App\Models\Product;
 use Livewire\Component;
-use App\Models\Category;
 
 class ProductListing extends Component
 {
-    public $products;
-    public $searchTerm = '';
-    public $category_id;
-    public $current_product_id;
+    public $category_id = 0;
+    public $current_product_id = 0;
+    public $products = [];
+    public $limit = 4;
 
-    public function mount($category_id, $current_product_id)
+    public function mount()
     {
-        $this->category_id = $category_id;
-        $this->current_product_id = $current_product_id;
-        $this->updateProductList();
-    }
-
-    public function updatedSearchTerm()
-    {
-        $this->updateProductList();
-    }
-
-    public function updateProductList()
-    {
-        if ($this->category_id == 0) {
-            $this->products = Product::with('category')
-                ->where('id', '!=', $this->current_product_id)
-                ->where('name', 'like', '%' . $this->searchTerm . '%')
-                ->orderBy('created_at', 'DESC')
-                ->limit(4)
-                ->get();
-        } elseif ($this->category_id == 'all') {
-            $this->products = Product::with('category')
-                ->where('name', 'like', '%' . $this->searchTerm . '%')
-                ->get();
-        } else {
-            $this->products = Product::with('category')
-                ->where('category_id', $this->category_id)
-                ->where('id', '!=', $this->current_product_id)
-                ->where('name', 'like', '%' . $this->searchTerm . '%')
-                ->limit(4)
-                ->get();
+        $query = Product::query()->latest();
+        
+        if ($this->category_id > 0) {
+            $query->where('category_id', $this->category_id);
         }
+        
+        if ($this->current_product_id > 0) {
+            $query->where('id', '!=', $this->current_product_id);
+        }
+        
+        $this->products = $query->take($this->limit)->get();
     }
 
+    public function addToCart($productId)
+    {
+        $this->dispatch('add-to-cart', productId: $productId);
+    }
+    
     public function render()
     {
-        return view('livewire.product-listing', [
-            'categories' => Category::all()
-        ]);
+        return view('livewire.product-listing');
     }
 }
