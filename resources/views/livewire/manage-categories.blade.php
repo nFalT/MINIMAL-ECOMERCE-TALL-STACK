@@ -1,129 +1,87 @@
-<!-- Table Section -->
-<div>
+<div class="space-y-6">
+    <!-- Breadcrumb -->
     <livewire:break-crumb :url="$currentUrl" />
-    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-      <!-- Card -->
-      <div class="flex flex-col">
-        <div class="-m-1.5 overflow-x-auto">
-          <div class="p-1.5 min-w-full inline-block align-middle">
-            <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-neutral-800 dark:border-neutral-700">
-              <!-- Header -->
-              <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-neutral-700">
-                <div>
-                  <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
-                    category
-                  </h2>
-                  <p class="text-sm text-gray-600 dark:text-neutral-400">
-                    Add category, edit and more.
-                  </p>
-                </div>
 
-                  <div class="inline-flex gap-x-2">
-                  <div class="max-w-md space-y-3">
-                      <input type="search" wire:model.live.debounce.300="search" class="peer py-3 px-4 block w-full bg-gray-100 border-blue-500 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Search category">
-                  </div>
-
-                    <a wire:navigate class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="/add/category">
-                      <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                      Add category
-                    </a>
-                  </div>
-                </div>
-              <!-- End Header -->
-
-              <!-- Table -->
-              <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-                <thead class="bg-gray-50 dark:bg-neutral-800  px-5">
-                  <tr>
-
-                    @include('livewire.theaders.th',[
-                      'name' => 'name',
-                      'columnName' => 'category Name',
-                    ])
-
-                    @include('livewire.theaders.th',[
-                      'name' => 'created_at', //column name from db
-                      'columnName' => 'Created', //display name
-                    ])
-                    <th scope="col" class="px-6 py-3 text-end"></th>
-                    <th scope="col" class="px-6 py-3 text-end"></th>
-                  </tr>
-                </thead>
-
-                <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-            @if (count($categories) > 0)
-              @foreach ($categories as $category)
-              <tr wire:key="{{$category->id}}">
-                <td class="size-px  px-5">
-                  <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
-                      <div class="grow">
-                        <span class="block text-sm font-semibold text-gray-800 dark:text-neutral-200">{{str($category->name)->words(3)}}</span>
-                    </div>
-
-                  </div>
-                </td>
-                <td class="size-px whitespace-nowrap">
-                  <div class="px-6 py-3">
-                  <span class="text-sm text-gray-500 dark:text-neutral-500">{{ date('D M Y, H:i',strtotime($category->created_at))}}</span>
-                  </div>
-                </td>
-                <td class="size-px whitespace-nowrap">
-                  <div class="px-6 py-1.5">
-                  <a class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500" href="#">
-                    Edit
-                  </a>
-                  </div>
-                </td>
-                <td class="size-px whitespace-nowrap">
-                  <div class="px-6 py-1.5">
-                  <a class="inline-flex items-center gap-x-1 text-sm text-red-500 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500" href="#">
-                    Delete
-                  </a>
-                  </div>
-                </td>
-                </tr>
-              @endforeach
-            @else
-              <tr>
-                <td class="size-px whitespace-nowrap" colspan="5">
-                  <div class="px-6 py-3">
-                    <span class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
-                    No Data Found!
-                    </span>
-                  </div>
-                  </td>
-              </tr>
-            @endif
-                </tbody>
-              </table>
-              <!-- End Table -->
-
-              <!-- Footer -->
-              <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-neutral-700">
-                <div class="flex gap-2">
-                  <label class="w-32 text-sm font-medium text-gray-900">Per Page</label>
-                    <select wire:model.live='perPage'
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                        <option value="5">5</option>
-                        <option value="7">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </div>
-                <!-- the links to different pages -->
-                <div>
-                {{ $categories->links()}}
-                </div>
-
-              </div>
-              <!-- End Footer -->
+    <!-- Card Container -->
+    <div class="bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 rounded-2xl shadow p-6">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
+            <div>
+                <h2 class="text-2xl font-semibold text-gray-800 dark:text-neutral-200">Categories</h2>
+                <p class="text-sm text-gray-600 dark:text-neutral-400">Add, edit, or delete categories</p>
             </div>
-          </div>
+            <div class="mt-4 md:mt-0 flex items-center space-x-2">
+                <input type="search" wire:model.live.debounce.300="search"
+                    class="w-full md:w-64 py-2 px-3 bg-gray-100 dark:bg-neutral-700 border border-transparent rounded-lg text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Search categories..." />
+                <a wire:navigate href="/add/category"
+                    class="flex items-center gap-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add Category
+                </a>
+            </div>
         </div>
-      </div>
-      <!-- End Card -->
-    </div>
-  </div>
 
-  <!-- End Table Section -->
+        <!-- Table -->
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                <thead class="bg-gray-50 dark:bg-neutral-700">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-neutral-300">Name
+                        </th>
+                        <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-neutral-300">Created
+                            At</th>
+                        <th class="px-4 py-2"></th>
+                        <th class="px-4 py-2"></th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white dark:bg-neutral-800 divide-y divide-gray-200 dark:divide-neutral-700">
+                    @forelse ($categories as $category)
+                        <tr wire:key="{{ $category->id }}">
+                            <td class="px-4 py-3 text-sm text-gray-800 dark:text-neutral-200">
+                                {{ Str::limit($category->name, 30) }}</td>
+                            <td class="px-4 py-3 text-sm text-gray-500 dark:text-neutral-500">
+                                {{ $category->created_at->format('d M Y, H:i') }}</td>
+                            <td class="px-4 py-3 text-right">
+                                <a wire:navigate href="/edit/{{ $category->id }}/category"
+                                    class="text-blue-600 hover:underline dark:text-blue-400">Edit</a>
+                            </td>
+                            <td class="px-4 py-3 text-right">
+                                <button wire:click="delete({{ $category->id }})"
+                                    wire:confirm.prompt="Type DELETE to confirm|DELETE"
+                                    class="text-red-600 hover:underline dark:text-red-400">Delete</button>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4"
+                                class="px-4 py-6 text-center text-sm text-gray-500 dark:text-neutral-400">
+                                No categories found.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination & Per Page -->
+        <div class="mt-6 flex flex-col md:flex-row md:justify-between items-center">
+            <div class="mb-4 md:mb-0 flex items-center space-x-2">
+                <label for="perPage" class="text-sm text-gray-700 dark:text-neutral-300">Per Page:</label>
+                <select id="perPage" wire:model.live="perPage"
+                    class="py-1 px-2 bg-gray-50 dark:bg-neutral-700 border border-gray-300 dark:border-neutral-600 rounded-lg text-sm">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+            <div>
+                {{ $categories->links() }}
+            </div>
+        </div>
+    </div>
+</div>

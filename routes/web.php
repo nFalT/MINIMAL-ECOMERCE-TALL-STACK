@@ -20,11 +20,19 @@ Route::get('/', function () {
 
 Route::get('/product/{product_id}/details',ProductDetails::class);
 
-Route::get('/all/products',AllProducts::class);
+Route::get('/all/products',AllProducts::class)->name('products.index');
 
 Route::get('/about',AboutUs::class);
 
 Route::get('/contacts',Contacts::class);
+
+Route::post('/checkout', function () {
+    session()->forget('cart');
+
+    session()->flash('success', 'Checkout successful!');
+
+    return redirect()->back();
+})->name('checkout.process');
 
 Route::get('/shopping-cart', function () {
     return view('shopping-cart');
