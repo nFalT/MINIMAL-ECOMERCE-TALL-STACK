@@ -12,12 +12,12 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
                     </svg>
                 </div>
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Add New Category</h1>
-                <p class="text-gray-600 dark:text-neutral-400">Create a new category to organize your products</p>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Update Category</h1>
+                <p class="text-gray-600 dark:text-neutral-400">Update category to organize your products</p>
             </div>
 
             <div class="p-8">
-                <form wire:submit="save" class="space-y-8">
+                <form wire:submit="update" class="space-y-8">
                     <!-- Category Name Input -->
                     <div class="space-y-3">
                         <label for="category_name" class="block text-sm font-semibold text-gray-700 dark:text-neutral-300 flex items-center">
@@ -33,7 +33,8 @@
                                 type="text" 
                                 wire:model="category_name" 
                                 id="category_name"
-                                placeholder="Enter category name (e.g., Electronics, Clothing, Books)"
+                                value="{{ old('category_name', $category_name) }}"
+                                placeholder="Enter category name"
                                 class="w-full px-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200 placeholder-gray-400 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder-neutral-500 dark:focus:ring-purple-600 dark:focus:border-purple-600"
                             >
                             
@@ -79,23 +80,14 @@
                             type="submit"
                             class="flex-1 cursor-pointer px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl text-sm font-semibold hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                         >
-                            <div 
-                                wire:loading
-                                class="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                                role="status" 
-                                aria-label="loading"
-                            ></div>
-                            
+                            <div wire:loading class="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" role="status" aria-label="loading"></div>
                             <span wire:loading.remove class="flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                 </svg>
-                                Create Category
+                                Update Category
                             </span>
-                            
-                            <span wire:loading class="flex items-center">
-                                Creating...
-                            </span>
+                            <span wire:loading class="flex items-center">Updating...</span>
                         </button>
                     </div>
 

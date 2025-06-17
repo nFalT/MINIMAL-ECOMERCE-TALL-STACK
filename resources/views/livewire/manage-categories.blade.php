@@ -2,6 +2,18 @@
     <!-- Breadcrumb -->
     <livewire:break-crumb :url="$currentUrl" />
 
+    @if (session()->has('message'))
+        <div class="mb-4 p-4 rounded-lg bg-green-50 text-green-800 border border-green-200 dark:bg-green-900 dark:text-green-100 dark:border-green-700">
+            {{ session('message') }}
+        </div>
+    @endif
+
+    @if (session()->has('error'))
+        <div class="mb-4 p-4 rounded-lg bg-red-50 text-red-800 border border-red-200 dark:bg-red-900 dark:text-red-100 dark:border-red-700">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <!-- Card Container -->
     <div class="bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 rounded-2xl shadow p-6">
         <!-- Header -->

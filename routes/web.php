@@ -4,6 +4,7 @@ use App\Livewire\AboutUs;
 use App\Livewire\AddCategory;
 use App\Livewire\AllProducts;
 use App\Livewire\Contacts;
+use App\Livewire\EditCategory;
 use App\Livewire\EditProduct;
 use App\Livewire\ManageOrders;
 use App\Livewire\AddProductForm;
@@ -52,4 +53,5 @@ Route::group(['middleware' => 'admin'], function(){
     Route::get('/add/category', AddCategory::class);
     //editing products
     Route::get('/edit/{id}/product', EditProduct::class);
+    Route::get('/edit/{id}/category', EditCategory::class);
 });

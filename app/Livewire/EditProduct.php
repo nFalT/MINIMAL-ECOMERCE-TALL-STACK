@@ -38,16 +38,22 @@ class EditProduct extends Component
     }
 
     public function update(){
-        $this->validate([
+        $rules = [
             'product_name' => 'required',
-            'photo' => 'required|mimes:jpg,png|max:1024', // 1MB Max
             'product_description' => 'required',
             'product_price' => 'required|integer',
             'category_id' => 'required',
-        ]);
-        if($this->photo && !is_string($this->photo)){
-            $photopath =  $this->photo->store('photos', 'public');
-        }else{
+        ];
+    
+        if ($this->photo && !is_string($this->photo)) {
+            $rules['photo'] = 'mimes:jpg,png|max:1024';
+        }
+    
+        $this->validate($rules);
+
+        if ($this->photo && !is_string($this->photo)) {
+            $photopath = $this->photo->store('photos', 'public');
+        } else {
             $photopath = $this->photo;
         }
 
@@ -59,7 +65,7 @@ class EditProduct extends Component
             'image' => $photopath,
         ]);
 
-        return $this->redirect('/products', navigate: true);
+        return $this->redirect('/products');
     }
     public function render()
     {

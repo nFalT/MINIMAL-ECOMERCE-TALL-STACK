@@ -26,6 +26,19 @@ class ManageCategories extends Component
         $this->sortBy = $sortColum;
         $this->sortDir = 'ASC';
     }
+    public function delete($id)
+    {
+        $category = Category::find($id);
+
+        if ($category) {
+            $category->delete();
+            session()->flash('message', 'Category deleted successfully.');
+        } else {
+            session()->flash('error', 'Category not found.');
+        }
+
+        $this->resetPage();
+    }
     public function render()
     {
         $current_url = url()->current();

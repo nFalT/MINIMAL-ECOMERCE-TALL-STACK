@@ -122,7 +122,7 @@
                                         <div class="mt-1.5">
                                             <span
                                                 class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-                                                @if (auth()->user()->isAdmin())
+                                                @if (auth()->user()->role == 1)
                                                     Administrator
                                                 @else
                                                     Customer
@@ -436,15 +436,6 @@
                             {{ $category->name }}
                         </a>
                     @endforeach
-                    <a wire:navigate href="/all/products"
-                        class="px-3 py-1.5 bg-blue-600 text-white font-medium flex items-center transition duration-300 hover:bg-blue-700 rounded-lg ml-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                        </svg>
-                        All Categories
-                    </a>
                 </div>
             </div>
         </div>

@@ -49,7 +49,7 @@ class AddProductForm extends Component
         $product->category_id = $this->category_id;
         $product->save();
 
-        return $this->redirect('/products', navigate: true);
+        return $this->redirect('/products');
     }
 
     public function render()

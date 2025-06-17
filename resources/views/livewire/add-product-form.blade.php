@@ -1,199 +1,207 @@
 <div>
     <livewire:break-crumb :url="$currentUrl" />
+    
     <!-- Card Section -->
-    <div class="max-w-4xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="max-w-5xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Card -->
-        <div class="bg-slate-100 rounded-xl shadow p-4 sm:p-7 dark:bg-neutral-900">
-            <form wire:submit="save">
-                <!-- Section -->
-                <div
-                    class="grid sm:grid-cols-12 gap-2 sm:gap-4 py-8 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-neutral-700 dark:first:border-transparent">
-                    <div class="sm:col-span-12">
-                        <h2 class="text-lg font-semibold text-gray-800 dark:text-neutral-200">
-                            Add New Product
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden dark:bg-neutral-900 dark:border-neutral-800">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-8 border-b border-gray-100 dark:from-neutral-800 dark:to-neutral-700 dark:border-neutral-700">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Add New Product</h1>
+                <p class="text-gray-600 dark:text-neutral-400 mt-2">Fill in the details below to create a new product</p>
+            </div>
+
+            <form wire:submit.prevent="save" class="p-6 sm:p-8">
+                <!-- Basic Information Section -->
+                <div class="mb-10">
+                    <div class="flex items-center mb-6">
+                        <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-white text-sm font-semibold">1</span>
+                        </div>
+                        <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
+                            Basic Information
                         </h2>
                     </div>
-                    <!-- End Col -->
 
-                    <div class="sm:col-span-3">
-                        <label for="af-submit-application-full-name"
-                            class="inline-block text-sm font-medium text-gray-500 mt-2.5 dark:text-neutral-500">
-                            Product name
-                        </label>
-                    </div>
-                    <!-- End Col -->
-
-                    <div class="sm:col-span-9">
-                        <div>
-                            <input type="text" wire:model="product_name" id="af-submit-application-full-name"
-                                class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm -mt-px -ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:mt-0 sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Product Name -->
+                        <div class="space-y-2">
+                            <label for="product_name" class="block text-sm font-medium text-gray-700 dark:text-neutral-300">
+                                Product Name <span class="text-red-500">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                wire:model="product_name" 
+                                id="product_name"
+                                placeholder="Enter product name"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder-neutral-500 dark:focus:ring-blue-600"
+                            >
                             @error('product_name')
-                                <span class="text-red-500">{{ $message }}</span>
+                                <p class="text-red-500 text-sm mt-1 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                    </svg>
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+
+                        <!-- Price -->
+                        <div class="space-y-2">
+                            <label for="product_price" class="block text-sm font-medium text-gray-700 dark:text-neutral-300">
+                                Price <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-3 text-gray-500 dark:text-neutral-400">$</span>
+                                <input 
+                                    id="product_price" 
+                                    wire:model="product_price" 
+                                    type="text"
+                                    inputmode="decimal" 
+                                    pattern="[0-9]*[.,]?[0-9]*"
+                                    placeholder="0.00"
+                                    class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder-neutral-500 dark:focus:ring-blue-600"
+                                >
+                            </div>
+                            @error('product_price')
+                                <p class="text-red-500 text-sm mt-1 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                    </svg>
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+
+                        <!-- Category -->
+                        <div class="space-y-2 lg:col-span-2">
+                            <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-neutral-300">
+                                Category <span class="text-red-500">*</span>
+                            </label>
+                            <select 
+                                wire:model="category_id" 
+                                id="category_id"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200 dark:focus:ring-blue-600"
+                            >
+                                <option value="">Select Product Category</option>
+                                @foreach ($all_categories as $category)
+                                    <option value="{{ $category->id }}" wire:key="{{ $category->id }}">
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <p class="text-red-500 text-sm mt-1 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                    </svg>
+                                    {{ $message }}
+                                </p>
                             @enderror
                         </div>
                     </div>
-                    <!-- End Col -->
-
-                    <div class="sm:col-span-3">
-                        <label for="af-submit-application-email"
-                            class="inline-block text-sm font-medium text-gray-500 mt-2.5 dark:text-neutral-500">
-                            Price
-                        </label>
-                    </div>
-                    <!-- End Col -->
-
-                    {{-- <div class="sm:col-span-3">
-            <div class="inline-block">
-              <label for="af-submit-application-phone" class="inline-block text-sm font-medium text-gray-500 mt-2.5 dark:text-neutral-500">
-                Category
-              </label>
-            </div>
-          </div>
-          <!-- End Col -->
-
-          <div class="sm:col-span-3">
-            <label for="af-submit-application-resume-cv" class="inline-block text-sm font-medium text-gray-500 mt-2.5 dark:text-neutral-500">
-                Product Image
-            </label>
-        </div>
-        <!-- End Col -->
-        <div class="sm:col-span-3">
-          <div class="inline-block">
-            <label for="af-submit-application-current-company" class="inline-block text-sm font-medium text-gray-500 mt-2.5 dark:text-neutral-500">
-              Current Company
-            </label>
-          </div>
-        </div>
-        <!-- End Col --> --}}
-                    <div class="sm:col-span-9">
-                        <input id="af-submit-application-email" wire:model="product_price" type="text"
-                            inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
-                            class="py-2 px-3 pe-11 block w-full  shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                        @error('product_price')
-                            <span class="text-red-500">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <!-- End Col -->
-                    <div class="sm:col-span-3">
-                        <label for="af-submit-application-email"
-                            class="inline-block text-sm font-medium text-gray-500 mt-2.5 dark:text-neutral-500">
-                            Category
-                        </label>
-                    </div>
-                    <!-- End Col -->
-
-                    <div class="sm:col-span-9">
-                        <select wire:model="category_id"
-                            class="py-3 px-4 pe-9 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                            <option selected="">Select Product Category</option>
-                            @foreach ($all_categories as $category)
-                                <option value="{{ $category->id }}" wire:key="{{ $category->id }}">{{ $category->name }}
-                                </option>
-                            @endforeach
-
-                        </select>
-                        @error('category_id')
-                            <span class="text-red-500">{{ $message }}</span>
-                        @enderror
-                    </div>
                 </div>
-                <!-- End Section -->
 
-                <!-- Section -->
-                <div
-                    class="grid sm:grid-cols-12 gap-2 sm:gap-4 py-8 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-neutral-700 dark:first:border-transparent">
-                    <div class="sm:col-span-12">
-                        <h2 class="text-lg font-semibold text-gray-800 dark:text-neutral-200">
-                            More Details
+                <!-- Product Details Section -->
+                <div class="mb-10">
+                    <div class="flex items-center mb-6">
+                        <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-white text-sm font-semibold">2</span>
+                        </div>
+                        <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-200">
+                            Product Details
                         </h2>
                     </div>
-                    <!-- End Col -->
-                    <div class="sm:col-span-3">
 
-                    </div>
-                    <!-- End Col -->
-                    {{-- <div class="sm:col-span-3">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Product Image -->
+                        <div class="space-y-2">
+                            <label for="photo_upload" class="block text-sm font-medium text-gray-700 dark:text-neutral-300">
+                                Product Image <span class="text-red-500">*</span>
+                            </label>
 
-            </div>
-          <!-- End Col --> --}}
-                    <div class="sm:col-span-9">
-                        @if ($photo)
-                            <img src="{{ $photo->temporaryUrl() }}" alt="Product image" height="300px" width="300px"
-                                class="rounded-lg">
-                        @else
-                            <img src="{{ asset('images/placeholder-image.jpg') }}" alt="default image" height="300px"
-                                width="300px" class="rounded-lg">
-                        @endif
-                    </div>
+                            <input 
+                                type="file" 
+                                wire:model="photo" 
+                                id="photo_upload" 
+                                class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none dark:text-neutral-200 dark:bg-neutral-800 dark:border-neutral-600"
+                                accept="image/png, image/jpeg"
+                            >
 
-                    <div class="sm:col-span-3">
-                        <label for="af-submit-application-resume-cv"
-                            class="inline-block text-sm font-medium text-gray-500 mt-2.5 dark:text-neutral-500">
-                            Product Image
-                        </label>
-                    </div>
-                    <!-- End Col -->
-                    <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
-                        x-on:livewire-upload-finish="uploading = true" x-on:livewire-upload-error="uploading = false"
-                        x-on:livewire-upload-progress="progress = $event.detail.progress" class="sm:col-span-9">
-                        <label for="file" class="sr-only">Choose Image</label>
-                        <input type="file" wire:model="photo" id="file"
-                            class="block w-full border  shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:bg-gray-100 file:me-4 file:py-2 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400">
-                        @error('photo')
-                            <span class="text-red-500">{{ $message }}</span>
-                        @enderror
-                        <!-- File Uploading Progress Form -->
-                        <div x-show="uploading">
-                            <!-- Progress Bar -->
-                            <div class="flex items-center gap-x-3 whitespace-nowrap">
-                                <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700"
-                                    role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500"
-                                        :style="`width: ${progress}%`"></div>
-                                </div>
-                                <div class="w-6 text-end">
-                                    <span class="text-sm text-gray-800 dark:text-white" x-text="`${progress}%`"></span>
+                            @error('photo')
+                                <p class="text-red-500 text-sm mt-1 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                    </svg>
+                                    {{ $message }}
+                                </p>
+                            @enderror
+                        </div>
+
+                        <!-- Product Description -->
+                        <div class="space-y-4">
+                            <label for="product_description" class="block text-sm font-medium text-gray-700 dark:text-neutral-300">
+                                Product Description
+                            </label>
+                            <div class="relative">
+                                <textarea 
+                                    id="product_description" 
+                                    wire:model="product_description"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 resize-none dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-200 dark:placeholder-neutral-500 dark:focus:ring-blue-600"
+                                    rows="12" 
+                                    placeholder="Describe your product in detail. Include key features, benefits, and specifications..."
+                                    maxlength="1000"
+                                ></textarea>
+                                <div class="absolute bottom-3 right-3 text-xs text-gray-400 dark:text-neutral-500">
+                                    <span>{{ strlen($product_description ?? '') }}</span>/1000
                                 </div>
                             </div>
-                            <!-- End Progress Bar -->
-                        </div>
-                        <!-- End File Uploading Progress Form -->
-                    </div>
-
-                    <div class="sm:col-span-3">
-                        <div class="inline-block">
-                            <label for="af-submit-application-bio"
-                                class="inline-block text-sm font-medium text-gray-500 mt-2.5 dark:text-neutral-500">
-                                Product description
-                            </label>
+                            @error('product_description')
+                                <p class="text-red-500 text-sm mt-1 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                    </svg>
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
                     </div>
-                    <!-- End Col -->
-
-                    <div class="sm:col-span-9">
-                        <textarea id="af-submit-application-bio" wire:model="product_description"
-                            class="py-2 px-3 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                            rows="6" placeholder="Add a product description here!"></textarea>
-                        @error('product_description')
-                            <span class="text-red-500">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <!-- End Col -->
                 </div>
-                <!-- End Section -->
 
-                <button type="submit"
-                    class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                    <div wire:loading
-                        class="animate-spin inline-block size-4 border-[3px] border-current border-t-transparent text-white-600 rounded-full dark:text-blue-500"
-                        role="status" aria-label="loading">
-                        <span class="sr-only">Loading...</span>
+                <!-- Submit Button -->
+                <div class="border-t border-gray-200 pt-8 dark:border-neutral-700">
+                    <div class="flex justify-end space-x-4">
+                        <button 
+                            type="button" 
+                            class="px-6 py-3 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 dark:bg-neutral-800 dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700"
+                        >
+                            Cancel
+                        </button>
+                        <button 
+                            type="submit"
+                            class="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg text-sm font-medium hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center space-x-2"
+                            wire:loading.attr="disabled"
+                        >
+                            <div 
+                                wire:loading
+                                class="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                                role="status" 
+                                aria-label="loading"
+                            >
+                            </div>
+                            <span wire:loading.remove>
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                            </span>
+                            <span wire:loading.remove>Save Product</span>
+                            <span wire:loading>Saving...</span>
+                        </button>
                     </div>
-                    Submit and Save
-                </button>
+                </div>
             </form>
         </div>
         <!-- End Card -->
     </div>
+    <!-- End Card Section -->
 </div>
-<!-- End Card Section -->

@@ -20,7 +20,7 @@ class AddCategory extends Component
         $category->name = $this->category_name;
         $category->save();
 
-        return $this->redirect('/manage/categories', navigate: true);
+        return $this->redirect('/manage/categories');
     }
     public function render()
     {
