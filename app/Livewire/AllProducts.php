@@ -30,4 +30,33 @@ class AllProducts extends Component
     {
         return view('livewire.all-products');
     }
+    
+    public function addToCart($productId)
+    {
+        $product = \App\Models\Product::find($productId);
+        
+        if (!$product) {
+            return;
+        }
+        
+        $cart = session()->get('cart', []);
+        
+        if(isset($cart[$productId])) {
+            $cart[$productId]['quantity']++;
+        } else {
+            $cart[$productId] = [
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->image
+            ];
+        }
+        
+        session()->put('cart', $cart);
+        
+        $this->dispatch('cart-updated', cartCount: count($cart));
+        $this->dispatch('add-to-cart', productName: $product->name);
+        
+        session()->flash('success', 'Product added to cart!');
+    }
 }
